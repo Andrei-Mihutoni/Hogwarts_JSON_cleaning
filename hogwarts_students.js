@@ -26,8 +26,8 @@ function prepareObjects(jsonData) {
     const Student = {
       fullName: "",
       firstName: "",
-      lastName: "",
       middleName: "unknown",
+      lastName: "",
       nickName: "unknown",
       imageFileName: "",
       house: "",
@@ -37,7 +37,7 @@ function prepareObjects(jsonData) {
 
     // create prototype from JSON
     const student = Object.create(Student);
-
+    const fullNameArray = jsonObject.fullname.trim().split(" ");
     const [firstName] = jsonObject.fullname.trim().split(" ");
     // console.log(firstName);
 
@@ -45,6 +45,21 @@ function prepareObjects(jsonData) {
       firstName.charAt(0).toUpperCase() + firstName.substring(1).toLowerCase();
     // console.log(`First name: ${student.firstName}`);
 
+    function middleName() {
+      if (fullNameArray.length === 3) {
+        let middleName = fullNameArray[1];
+        middleName = middleName.replace(/"/g, "");
+        middleName =
+          middleName.charAt(0).toUpperCase() +
+          middleName.substr(1).toLowerCase();
+        // console.log(middleName);
+        student.middleName = middleName;
+        // console.log(student.middleName);
+      }
+    }
+    middleName();
+
+    // Last name:
     const fullName = jsonObject.fullname.trim().split(" ").toString();
     // console.log(fullName);
     const lastComma = fullName.lastIndexOf(",");
@@ -57,6 +72,7 @@ function prepareObjects(jsonData) {
       lastNameRaw.substring(1).toLowerCase();
     // console.log(`Last name: ${lastName}`);
 
+    //Gender:
     student.gender = jsonObject.gender;
     // console.log(`Gender: ${student.gender}`);
 
